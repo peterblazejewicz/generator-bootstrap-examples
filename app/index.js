@@ -1,20 +1,20 @@
 'use strict';
 var chalk = require('chalk');
-var path = require('path');
-var util = require('util');
+var inquirer = require('inquirer');
 var yeoman = require('yeoman-generator');
 var yosay = require('yosay');
 
-var BootstrapExamplesGenerator = yeoman.generators.Base.extend({
-  initializing: function() {
+module.exports = yeoman.generators.Base.extend({
+  initializing: function () {
     this.pkg = require('../package.json');
   },
 
-  prompting: function() {
+  prompting: function () {
     var done = this.async();
+
     if (!this.options['skip-welcome-message']) {
       this.log(yosay(
-        'Welcome to the Bootstrap 3.* Examples generator!'
+        'Welcome to the classy ' + chalk.blue('Bootstrap Examples') + ' generator!'
       ));
       this.log(chalk.magenta(
         'Out of the box latest CSS distribution of Bootstrap 3.* is used with jQuery, Grunt and all tools.'
@@ -23,11 +23,11 @@ var BootstrapExamplesGenerator = yeoman.generators.Base.extend({
         'Just pick an offical example from the list below to start your project'
       ));
     }
-    var inquirer = yeoman.inquirer;
+
     var prompts = [{
       type: 'list',
       name: 'examples',
-      message: 'Which offical example use to build the project?',
+      message: 'Which official example use to build the project?',
       paginated: true,
       choices: [new inquirer.Separator('--- Using the framework ---'), {
         name: 'Starter template',
@@ -104,7 +104,7 @@ var BootstrapExamplesGenerator = yeoman.generators.Base.extend({
       }]
     }];
 
-    this.prompt(prompts, function(props) {
+    this.prompt(prompts, function (props) {
       this.someOption = props.someOption;
 
       done();
@@ -112,23 +112,32 @@ var BootstrapExamplesGenerator = yeoman.generators.Base.extend({
   },
 
   writing: {
-    app: function() {
-      this.dest.mkdir('app');
-      this.dest.mkdir('app/templates');
-
-      this.src.copy('_package.json', 'package.json');
-      this.src.copy('_bower.json', 'bower.json');
+    app: function () {
+      this.fs.copy(
+        this.templatePath('_package.json'),
+        this.destinationPath('package.json')
+      );
+      this.fs.copy(
+        this.templatePath('_bower.json'),
+        this.destinationPath('bower.json')
+      );
     },
 
-    projectfiles: function() {
-      this.src.copy('editorconfig', '.editorconfig');
-      this.src.copy('jshintrc', '.jshintrc');
+    projectfiles: function () {
+      this.fs.copy(
+        this.templatePath('editorconfig'),
+        this.destinationPath('.editorconfig')
+      );
+      this.fs.copy(
+        this.templatePath('jshintrc'),
+        this.destinationPath('.jshintrc')
+      );
     }
   },
 
-  end: function() {
-    this.installDependencies();
+  install: function () {
+    this.installDependencies({
+      skipInstall: this.options['skip-install']
+    });
   }
 });
-
-module.exports = BootstrapExamplesGenerator;

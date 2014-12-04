@@ -4,4 +4,3 @@ node_js:
 before_install:
   - currentfolder=${PWD##*/}
   - if [ "$currentfolder" != 'generator-bootstrap-examples' ]; then cd .. && eval "mv $currentfolder generator-bootstrap-examples" && cd generator-bootstrap-examples; fi
-
