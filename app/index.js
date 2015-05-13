@@ -29,7 +29,7 @@ module.exports = yeoman.generators.Base.extend({
       name: 'examples',
       message: 'Which official example use to build the project?',
       paginated: true,
-      choices: [new inquirer.Separator('--- Using the framework ---'), {
+      choices: [new inquirer.Separator(), {
         name: 'Starter template',
         value: 'starterTemplate',
         checked: true
@@ -49,7 +49,7 @@ module.exports = yeoman.generators.Base.extend({
         name: 'Jumbotron narrow',
         value: 'jumbotron-narrow',
         checked: false
-      }, new inquirer.Separator('--- Navbars in action ---'), {
+      }, new inquirer.Separator(), {
         name: 'Navbar',
         value: 'navbar',
         checked: false
@@ -61,7 +61,7 @@ module.exports = yeoman.generators.Base.extend({
         name: 'Fixed navbar',
         value: 'navbar-fixed-top',
         checked: false
-      }, new inquirer.Separator('--- Custom components ---'), {
+      }, new inquirer.Separator(), {
         name: 'Cover',
         value: 'cover',
         checked: false
@@ -93,7 +93,7 @@ module.exports = yeoman.generators.Base.extend({
         name: 'Sticky footer with navbar',
         value: 'sticky-footer-navbar',
         checked: false
-      }, new inquirer.Separator('--- Experiments ---'), {
+      }, new inquirer.Separator(), {
         name: 'Non-responsive Bootstrap',
         value: 'non-responsive',
         checked: false
